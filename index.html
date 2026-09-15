@@ -71,7 +71,7 @@ svg{width:100%;height:auto;display:block}
 .sw{width:12px;height:12px;border-radius:2px;display:inline-block}
 .sw.line{height:0;border-top:2px dashed var(--ink);opacity:.7;border-radius:0;width:18px}
 .tablewrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:460px}
+table{width:100%;border-collapse:collapse;min-width:540px}
 th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
   text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);font-weight:500}
 td{padding:9px 10px;border-bottom:1px solid var(--line);font-size:15px}
@@ -130,7 +130,7 @@ footer{color:var(--muted);font-size:13px;text-align:center;text-wrap:balance}
       <h3 id="sum-title">All three rounds side by side</h3>
       <div class="tablewrap">
         <table>
-          <thead><tr><th>Round</th><th class="n">Players</th><th class="n">Winner</th><th class="n">Average pick</th><th class="n">Median pick</th><th class="n">Picks above 30</th><th class="n">Unique numbers</th></tr></thead>
+          <thead><tr><th>Round</th><th class="n">Players</th><th class="n">Winner</th><th class="n">Average pick</th><th class="n">Median pick</th><th class="n">Picked 1 or 2</th><th class="n">Picks above 30</th><th class="n">Unique numbers</th></tr></thead>
           <tbody id="summary"></tbody>
         </table>
       </div>
@@ -140,7 +140,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;text-wrap:balance}
     <section class="block" aria-labelledby="take-title">
       <h3 id="take-title">What happened</h3>
       <ul class="takeaways">
-        <li><strong>Round 1 was all over the place.</strong> Eleven people picked 1, and eleven more picked something above 30, where theory says almost nobody should go.</li>
+        <li><strong>Round 1 was all over the place.</strong> Eleven people picked 1, and eleven more picked something above 30.</li>
+        <li><strong>Fewer people rushed to the very bottom.</strong> In round 1, 18 people picked 1 or 2, and none of those picks could win because each number was taken many times over. That fell to 12 in round 2 and 11 in round 3. Picks of 1 alone dropped from 11 to 7 to 5.</li>
         <li><strong>By round 3 the class had pulled in.</strong> The average pick fell from 16.4 to 7.9 and only two picks were above 30. Everyone learned that high numbers are wasted.</li>
         <li><strong>Then the class overshot.</strong> Crowding onto 4 and 6 left the low numbers so packed that the only unique number below 16 was 12. Theory predicts an average near 11.6, and the class ended below it.</li>
         <li><strong>This is what real players do too.</strong> When Sweden ran this as a national lottery in 2007, with about 54,000 bets a day, players started far from the prediction and moved toward it day by day, with nothing to go on but the winning number.</li>
@@ -217,8 +218,8 @@ function show(n){
 
 document.getElementById("summary").innerHTML = ROUNDS.map(r => `
   <tr><td>Round ${r.round}</td><td class="n">${r.n}</td><td class="n win">${r.winner}</td>
-  <td class="n">${r.mean.toFixed(1)}</td><td class="n">${r.median}</td><td class="n">${r.above30}</td><td class="n">${r.unique}</td></tr>`).join("") +
-  `<tr class="eqrow"><td>Prediction</td><td class="n">${EQ.n}</td><td class="n">&ndash;</td><td class="n">${EQ.mean}</td><td class="n">${EQ.median}</td><td class="n">0</td><td class="n">&ndash;</td></tr>`;
+  <td class="n">${r.mean.toFixed(1)}</td><td class="n">${r.median}</td><td class="n">${r.counts[0] + r.counts[1]}</td><td class="n">${r.above30}</td><td class="n">${r.unique}</td></tr>`).join("") +
+  `<tr class="eqrow"><td>Prediction</td><td class="n">${EQ.n}</td><td class="n">&ndash;</td><td class="n">${EQ.mean}</td><td class="n">${EQ.median}</td><td class="n">9</td><td class="n">0</td><td class="n">&ndash;</td></tr>`;
 
 document.querySelectorAll(".tabs button").forEach(b =>
   b.addEventListener("click", () => show(+b.dataset.round)));
